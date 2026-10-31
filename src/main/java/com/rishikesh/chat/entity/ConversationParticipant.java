@@ -16,9 +16,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint; //to prevent a user to add in a chat multiple times 
 
 @Entity
-@Table(name = "conversation_participants")
+@Table(name = "conversation_participants",
+
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = { "user_id ", "conversation_id" }) // to prevent duplication of
+                                                                                   // memebrship of a user in a
+                                                                                   // particpant
+        })
 
 public class ConversationParticipant {
     @Id // says database that this is primary key
